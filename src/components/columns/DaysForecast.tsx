@@ -5,36 +5,36 @@ import { JSX } from 'react'
 import { TransformedForecast } from '@/hooks/useForecast'
 
 interface DaysForecastProps {
-  forecast?: TransformedForecast[]
+  forecast?: TransformedForecast
+}
+
+export const getWeatherIcon = (iconCode: string) => {
+  const iconMap: { [key: string]: JSX.Element } = {
+    '01d': <Sun className='w-5 h-5 text-yellow-500' />,
+    '01n': <Moon className='w-5 h-5 text-gray-700' />,
+    '02d': <CloudSun className='w-5 h-5 text-yellow-500' />,
+    '02n': <Cloud className='w-5 h-5 text-gray-700' />,
+    '03d': <Cloud className='w-5 h-5 text-gray-500' />,
+    '03n': <Cloud className='w-5 h-5 text-gray-500' />,
+    '04d': <Cloud className='w-5 h-5 text-gray-700' />,
+    '04n': <Cloud className='w-5 h-5 text-gray-700' />,
+    '09d': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '09n': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '10d': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '10n': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '11d': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '11n': <CloudRain className='w-5 h-5 text-blue-500' />,
+    '13d': <Cloud className='w-5 h-5 text-gray-500' />,
+    '13n': <Cloud className='w-5 h-5 text-gray-500' />,
+    '50d': <Cloud className='w-5 h-5 text-gray-500' />,
+    '50n': <Cloud className='w-5 h-5 text-gray-500' />
+  }
+
+  return iconMap[iconCode] || <Cloud className='w-5 h-5 text-gray-500' />
 }
 
 export const DaysForecast = ({ forecast }: DaysForecastProps) => {
   if (!forecast) return null
-
-  const getWeatherIcon = (iconCode: string) => {
-    const iconMap: { [key: string]: JSX.Element } = {
-      '01d': <Sun className='w-5 h-5 text-yellow-500' />,
-      '01n': <Moon className='w-5 h-5 text-gray-700' />,
-      '02d': <CloudSun className='w-5 h-5 text-yellow-500' />,
-      '02n': <Cloud className='w-5 h-5 text-gray-700' />,
-      '03d': <Cloud className='w-5 h-5 text-gray-500' />,
-      '03n': <Cloud className='w-5 h-5 text-gray-500' />,
-      '04d': <Cloud className='w-5 h-5 text-gray-700' />,
-      '04n': <Cloud className='w-5 h-5 text-gray-700' />,
-      '09d': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '09n': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '10d': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '10n': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '11d': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '11n': <CloudRain className='w-5 h-5 text-blue-500' />,
-      '13d': <Cloud className='w-5 h-5 text-gray-500' />,
-      '13n': <Cloud className='w-5 h-5 text-gray-500' />,
-      '50d': <Cloud className='w-5 h-5 text-gray-500' />,
-      '50n': <Cloud className='w-5 h-5 text-gray-500' />
-    }
-
-    return iconMap[iconCode] || <Cloud className='w-5 h-5 text-gray-500' />
-  }
 
   const formatDate = (date: Date) => {
     const dayName = weekDayNames[date.getDay()]
@@ -49,7 +49,7 @@ export const DaysForecast = ({ forecast }: DaysForecastProps) => {
         5 Days Forecast
       </h2>
       <div className='space-y-6'>
-        {forecast.map((day, index) => {
+        {forecast.daily.map((day, index) => {
           const { dayName, dateStr } = formatDate(day.date)
 
           return (

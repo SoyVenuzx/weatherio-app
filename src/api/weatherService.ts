@@ -64,6 +64,12 @@ export const weatherService = {
     const response = await weatherApi.get('/forecast', { params: { lat, lon } })
     return response.data
   },
+  getForecastHourly: async (lat: number, lon: number) => {
+    const response = await weatherApi.get('/forecast/hourly', {
+      params: { lat, lon }
+    })
+    return response.data
+  },
   getReverseGeo: async (lat: number, lon: number): Promise<GeoLocation> => {
     const response = await geoApi.get('/reverse', { params: { lat, lon } })
     return response.data[0] // Devuelve el primer resultado

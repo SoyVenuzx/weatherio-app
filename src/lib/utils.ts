@@ -52,6 +52,14 @@ export const getTime = (timeUnix: number, timezone: number) => {
   return `${hours}:${minutes} ${period}`
 }
 
+export const hourlyGetTime = (timeUnix: number, timezone: number) => {
+  const date = new Date((timeUnix + timezone) * 1000)
+  let hours = date.getUTCHours()
+  const period = hours >= 12 ? 'PM' : 'AM'
+  hours = hours % 12 || 12
+  return `${hours} ${period}`
+}
+
 export const mps_to_kmh = (mps: number) => (mps * 3600) / 1000
 
 export const aqiText = {

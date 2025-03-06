@@ -47,7 +47,6 @@ export const Layout = () => {
     updateLocation().catch(console.error)
   }, [])
 
-  const { data } = useWeather(locationSelected)
   const { data: forecastData } = useForecast(locationSelected)
   const { data: currentWeather } = useWeather(locationSelected)
 
@@ -92,7 +91,7 @@ export const Layout = () => {
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-12'>
         {/* Left Column - Current Weather */}
         <div className='space-y-8 lg:col-span-3'>
-          <CurrentWeather weatherData={data ?? ({} as WeatherData)} />
+          <CurrentWeather weatherData={currentWeather ?? ({} as WeatherData)} />
 
           {/* 5 Days Forecast */}
           <DaysForecast forecast={forecastData} />
@@ -102,7 +101,7 @@ export const Layout = () => {
         <div className='space-y-8 lg:col-span-9'>
           <RowLayout location={locationSelected} />
           {/* Hourly Forecast */}
-          <HourForecast />
+          <HourForecast location={locationSelected} />
         </div>
       </div>
 
