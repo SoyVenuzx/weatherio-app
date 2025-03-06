@@ -14,15 +14,15 @@ export const HourForecast = ({ location }: HourForecastProps) => {
   return (
     <div className='p-6 border border-gray-200 rounded-lg'>
       <h2 className='mb-6 text-lg font-medium text-gray-700'>Today at</h2>
-      <div className='grid grid-cols-4 gap-4 md:grid-cls-8'>
+      <div className='grid grid-cols-4 gap-4 md:grid-cols-8'>
         {forecast.hourly.map((hour, index) => (
           <div
             key={index}
-            className='p-3 text-center border border-gray-100 rounded-lg'
+            className='p-3 text-center border border-gray-100 rounded-lg '
           >
-            <p className='mb-2 text-sm text-gray-500'>{hour.time}</p>
+            <p className='mb-2 text-sm text-gray-500 '>{hour.time}</p>
             {getWeatherIcon(hour.icon)}
-            <p className='mt-2 text-sm font-medium'>{hour.temp}°</p>
+            <p className='mt-2 text-sm font-medium'>{`${hour.temp}°`}</p>
           </div>
         ))}
       </div>
