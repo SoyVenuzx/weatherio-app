@@ -49,6 +49,7 @@ export const Layout = () => {
 
   const { data } = useWeather(locationSelected)
   const { data: forecastData } = useForecast(locationSelected)
+  const { data: currentWeather } = useWeather(locationSelected)
 
   const handleLocationSelect = (location: GeoLocation) => {
     setLocation(location)
@@ -99,7 +100,7 @@ export const Layout = () => {
 
         {/* Middle and Right Columns - Today's Highlights */}
         <div className='space-y-8 lg:col-span-9'>
-          <RowLayout />
+          <RowLayout location={locationSelected} />
           {/* Hourly Forecast */}
           <HourForecast />
         </div>

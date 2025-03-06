@@ -45,12 +45,11 @@ export const getFormattedDate = (dateUnix: number, timezone: number) => {
 }
 
 export const getTime = (timeUnix: number, timezone: number) => {
-  const date = new Date((timeUnix + timezone) * 100)
-  const hours = date.getUTCHours()
-  const minutes = date.getUTCMinutes()
-  const period = hours >= 12 ? 'PM' : 'AM'
-
-  return `${hours % 12 || 12}:${minutes} ${period}`
+  const date = new Date((timeUnix + timezone) * 1000)
+  const hours = date.getUTCHours().toString().padStart(2, '0')
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0')
+  const period = date.getUTCHours() >= 12 ? 'PM' : 'AM'
+  return `${hours}:${minutes} ${period}`
 }
 
 export const mps_to_kmh = (mps: number) => (mps * 3600) / 1000

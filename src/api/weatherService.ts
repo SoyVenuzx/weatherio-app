@@ -33,6 +33,21 @@ export interface GeoLocation {
   state?: string
 }
 
+export interface AirQualityResponse {
+  list: {
+    main: {
+      aqi: 1 | 2 | 3 | 4 | 5
+    }
+    components: {
+      pm2_5: number
+      so2: number
+      no2: number
+      o3: number
+    }
+    dt: number
+  }[]
+}
+
 // Funciones de servicio
 export const weatherService = {
   searchLocations: async (query: string): Promise<GeoLocation[]> => {
@@ -56,6 +71,15 @@ export const weatherService = {
 
   getCurrentWeatherByCoords: async (lat: number, lon: number) => {
     const response = await weatherApi.get('/weather', { params: { lat, lon } })
+    return response.data
+  },
+  getAirQuality: async (
+    lat: number,
+    lon: number
+  ): Promise<AirQualityResponse> => {
+    const response = await weatherApi.get('/air_pollution', {
+      params: { lat, lon }
+    })
     return response.data
   }
 }
