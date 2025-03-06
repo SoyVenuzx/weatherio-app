@@ -7,6 +7,7 @@ import { GeoLocation } from '@/api/weatherService'
 import { useGeolocation } from '@/hooks/useGeoLocation'
 import { useWeatherStore } from '@/hooks/useWeatherStore'
 import { sleep } from '@/lib/utils'
+import { ModeToggle } from '../toggle-mode'
 
 interface HeaderProps {
   onLocationSelect: (location: GeoLocation) => void
@@ -108,15 +109,18 @@ export const Header = ({ onLocationSelect, onError }: HeaderProps) => {
       </div>
 
       {/* Botón de ubicación actual */}
-      <Button
-        variant='outline'
-        className='flex items-center gap-2 border-gray-200 rounded-md hover:bg-gray-50'
-        onClick={handleCurrentLocation}
-        disabled={isGeoLoading}
-      >
-        <MapPin className='w-4 h-4' />
-        {isGeoLoading ? 'Detecting...' : 'Current Location'}
-      </Button>
+      <div className='flex justify-between gap-8'>
+        <Button
+          variant='outline'
+          className='flex items-center gap-2 border-gray-200 rounded-md hover:bg-gray-50'
+          onClick={handleCurrentLocation}
+          disabled={isGeoLoading}
+        >
+          <MapPin className='w-4 h-4' />
+          {isGeoLoading ? 'Detecting...' : 'Current Location'}
+        </Button>
+        <ModeToggle />
+      </div>
     </header>
   )
 }
