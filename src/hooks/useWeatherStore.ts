@@ -1,6 +1,4 @@
 import { WeatherStore } from '@/stores/slices/weather.store'
-import { useEffect } from 'react'
-import { useGeolocation } from './useGeoLocation'
 
 export const useWeatherStore = () => {
   const weatherData = WeatherStore(state => state.weatherData)

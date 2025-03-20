@@ -26,7 +26,7 @@ export const Layout = () => {
   } = useWeatherStore()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const { getCurrentLocation, getDefaultLocation } = useGeolocation()
+  const { getDefaultLocation } = useGeolocation()
 
   const test = getDefaultLocation()
 

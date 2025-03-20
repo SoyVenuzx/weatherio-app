@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { weatherService, AirQualityResponse } from '@/api/weatherService'
+import { weatherService } from '@/api/weatherService'
 import { GeoLocation } from '@/api/weatherService'
 import { aqiText } from '@/lib/utils'
 
