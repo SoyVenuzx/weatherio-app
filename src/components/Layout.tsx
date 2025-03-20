@@ -26,26 +26,43 @@ export const Layout = () => {
   } = useWeatherStore()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const { getCurrentLocation } = useGeolocation()
+  const { getCurrentLocation, getDefaultLocation } = useGeolocation()
+
+  const test = getDefaultLocation()
 
   useEffect(() => {
-    const updateLocation = async () => {
+    // const updateLocation = async () => {
+    //   if (!locationSelected) {
+    //     setLoading(true)
+    //     const currentLocation = await getCurrentLocation()
+
+    //     if (currentLocation) {
+    //       await sleep(1500)
+    //       setLocation(currentLocation)
+    //       setLoading(false)
+    //     } else {
+    //       return
+    //     }
+    //   }
+    // }
+
+    const setDefaultLocation = async () => {
       if (!locationSelected) {
         setLoading(true)
-        const currentLocation = await getCurrentLocation()
 
-        if (currentLocation) {
-          await sleep(1500)
-          setLocation(currentLocation)
+        if (test) {
+          await sleep(2000)
+          setLocation(test)
           setLoading(false)
         } else {
-          return
+          console.error('Failed to load defaultLocation data')
         }
       }
     }
 
-    updateLocation().catch(console.error)
-  }, [])
+    setDefaultLocation().catch(console.error)
+    // updateLocation().catch(console.error)
+  }, [test])
 
   const { data: forecastData } = useForecast(locationSelected)
   const { data: currentWeather } = useWeather(locationSelected)
@@ -92,7 +109,6 @@ export const Layout = () => {
         {/* Left Column - Current Weather */}
         <div className='space-y-8 lg:col-span-3'>
           <CurrentWeather weatherData={currentWeather ?? ({} as WeatherData)} />
-
           {/* 5 Days Forecast */}
           <DaysForecast forecast={forecastData} />
         </div>

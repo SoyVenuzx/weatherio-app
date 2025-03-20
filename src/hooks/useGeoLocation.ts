@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { GeoLocation, weatherService } from '@/api/weatherService'
+import { useGeoSearch } from './useGeoSearch'
 
 export const useGeolocation = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,27 +29,26 @@ export const useGeolocation = () => {
         position.coords.longitude
       )
 
+      console.log({ location })
+
       return location
     } catch (err) {
       const error = err as GeolocationPositionError
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          setError('Permission to access location was denied')
-          break
-        case error.POSITION_UNAVAILABLE:
-          setError('Location information is unavailable')
-          break
-        case error.TIMEOUT:
-          setError('The request to get location timed out')
-          break
-        default:
-          setError('Unknown error occurred')
-      }
+      console.log({ error })
+
       return null
     } finally {
       setIsLoading(false)
     }
   }
 
-  return { getCurrentLocation, isLoading, error }
+  const getDefaultLocation = () => {
+    const { data } = useGeoSearch('London')
+
+    if (!data) return null
+
+    return data[0]
+  }
+
+  return { getDefaultLocation, getCurrentLocation, isLoading, error }
 }

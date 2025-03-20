@@ -7,7 +7,7 @@ import { GeoLocation } from '@/api/weatherService'
 import { useGeolocation } from '@/hooks/useGeoLocation'
 import { useWeatherStore } from '@/hooks/useWeatherStore'
 import { sleep } from '@/lib/utils'
-import { ModeToggle } from '../toggle-mode'
+// import { ModeToggle } from '../toggle-mode'
 
 interface HeaderProps {
   onLocationSelect: (location: GeoLocation) => void
@@ -23,6 +23,7 @@ export const Header = ({ onLocationSelect, onError }: HeaderProps) => {
   const { getCurrentLocation, isLoading: isGeoLoading } = useGeolocation()
 
   const handleSelect = (location: GeoLocation) => {
+    console.log({ location })
     onLocationSelect(location)
     setQuery('')
     setIsSearchFocused(false)
